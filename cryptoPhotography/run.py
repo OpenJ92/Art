@@ -21,9 +21,6 @@ if vc.isOpened(): # try to get the first frame
 else:
     rval = False
 
-#frame = frame[:256, :256, :]
-#frame = cv2.resize(frame, dsize=None, fx=0.35, fy=0.35)
-
 image = IMAGE(frame)
 text = TEXT('./MythOfS.pdf')
 mask_bulk = MASK_BULK(text, image)
@@ -34,7 +31,6 @@ while rval:
     cv2.imshow("preview", frame)
     rval, frame = vc.read()
 
-    #frame = cv2.resize(frame, dsize=None, fx=0.35, fy=0.35)
     temporalIMG_bulk.updateBULK_(frame)
     _frame = np.einsum('ijkl , ijkl -> ijkl', mask_bulk.BULK_, temporalIMG_bulk.BULK_)
     frame = np.einsum('ijkl -> ijk', _frame).astype('uint8')
