@@ -6,7 +6,7 @@ class MASK_BULK():
         self.textInstance = textInstance
         self.imageInstance = imageInstance
         self.printable = string.printable
-        self.translateBULKLOC_ = self.translateBULKLOC()
+        self.translateBULKLOC_ = {self.printable[i] : i for i in range(len(self.printable))}
         self.BULK_ = self.constructBULK()
 
     def constructBULK(self):
@@ -22,8 +22,6 @@ class MASK_BULK():
                     pass
         return BULK_
 
-    def translateBULKLOC(self):
-        return {self.printable[i] : i for i in range(len(self.printable))}
 
 class TEMPORALimg_BULK():
     def __init__(self, imageInstance):
