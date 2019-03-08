@@ -10,7 +10,7 @@ class MASK_BULK():
         self.BULK_ = self.constructBULK()
 
     def constructBULK(self):
-        BULK_ = np.zeros(shape = (self.imageInstance.image.shape[0], self.imageInstance.image.shape[1], 3, len(self.printable)))
+        BULK_ = np.zeros(shape = (self.imageInstance.image.shape[0], self.imageInstance.image.shape[1], 3, len(self.printable))).astype('uint8')
 
         for i in range(BULK_.shape[0]):
             for j in range(BULK_.shape[1]):
@@ -26,7 +26,7 @@ class MASK_BULK():
 class TEMPORALimg_BULK():
     def __init__(self, imageInstance):
         self.printable = string.printable
-        self.BULK_ = np.zeros(shape = (imageInstance.image.shape[0], imageInstance.image.shape[1], 3,len(self.printable)))
+        self.BULK_ = np.zeros(shape = (imageInstance.image.shape[0], imageInstance.image.shape[1], 3,len(self.printable))).astype('uint8')
 
     def updateBULK_(self, frame):
         self.BULK_ = np.roll(self.BULK_, 1, axis = 3)
