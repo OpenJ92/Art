@@ -26,7 +26,6 @@ text = TEXT('./MythOfS.pdf')
 mask_bulk = MASK_BULK(text, image)
 temporalIMG_bulk = TEMPORALimg_BULK(image)
 
-counter = 0
 while rval:
     cv2.imshow("preview", frame)
     rval, frame = vc.read()

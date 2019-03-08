@@ -14,6 +14,5 @@ class TEXT():
         str_ = ''
 
         for page in range(0,pdfReader.numPages):
-            print(page)
             str_ += pdfReader.getPage(page).extractText()
         return str_

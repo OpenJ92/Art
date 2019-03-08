@@ -18,7 +18,6 @@ class MASK_BULK():
                 try:
                     BULK_[i,j, :, self.translateBULKLOC_[letter]] = np.array([1,1,1])
                 except:
-                    print(letter)
                     pass
         return BULK_
 
@@ -30,9 +29,7 @@ class TEMPORALimg_BULK():
 
     def updateBULK_(self, frame):
         self.BULK_ = np.roll(self.BULK_, 1, axis = 3)
-        #import pdb; pdb.set_trace()
         self.BULK_[:, :, :, 0] = frame
-        #import pdb; pdb.set_trace()
 
 class STATICimg_BULK():
     def __init__(self, imageInstance):
