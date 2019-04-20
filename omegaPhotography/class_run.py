@@ -2,6 +2,7 @@ from class_text import TEXT
 from class_bulk import MASK_BULK,  TEMPORALimg_BULK_Omega
 from class_image import IMAGE
 import cv2
+import skvideo.io
 import numpy as np
 
 class RUN():
@@ -11,9 +12,12 @@ class RUN():
 
     def runv2(self):
         cv2.namedWindow("preview")
-        vc0 = cv2.VideoCapture('testmov/red.mov')
-        vc1 = cv2.VideoCapture('testmov/green.mov')
-        vc2 = cv2.VideoCapture('testmov/blue.mov')
+
+        red, blue, green = self.vidPATH
+
+        vc0 = cv2.VideoCapture(red)
+        vc1 = cv2.VideoCapture(blue)
+        vc2 = cv2.VideoCapture(green)
         
         vc0.set(cv2.CAP_PROP_FRAME_WIDTH, 128)
         vc0.set(cv2.CAP_PROP_FRAME_HEIGHT, 128)
@@ -37,24 +41,35 @@ class RUN():
             rval = False
 
         mask_bulk, temporalIMG_bulk = self.setupv2(frame)
+        frames = []
+        count = 0
 
         while rval:
-            cv2.imshow("EotMoS", frame)
-            rval0, frame0 = vc0.read()
-            rval1, frame1 = vc1.read()
-            rval2, frame2 = vc2.read()
+            try:
+                # cv2.imshow("EotMoS", frame)
+                rval0, frame0 = vc0.read()
+                rval1, frame1 = vc1.read()
+                rval2, frame2 = vc2.read()
 
-            frame = self.constructFramev2(frame0, frame1, frame2, mask_bulk, temporalIMG_bulk)
+                frame = self.constructFramev2(frame0, frame1, frame2, mask_bulk, temporalIMG_bulk)
+                frames.append(frame)
+                print("frame: " + str(count))
+                count += 1
 
-            import pdb;pdb.set_trace()
-            
-            #import pdb;pdb.set_trace()
-
-            key = cv2.waitKey(20)
-            if key == 27:
+                key = cv2.waitKey(20)
+                if key == 27 or not rval0 or not rval1 or not rval2:
+                    break
+            except Exception as e:
+                print(e)
                 break
-        cv2.destroyWindow("preview")
 
+        frames = np.stack(frames, axis = 0)
+        skvideo.io.vwrite("outputvideo.mp4", frames)
+
+        vc0.release()
+        vc1.release()
+        vc2.release()
+        cv2.destroyWindow("preview")
 
     def setupv2(self, frame):
         image = IMAGE(frame)
