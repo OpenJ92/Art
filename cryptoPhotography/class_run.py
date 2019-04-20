@@ -1,5 +1,5 @@
 from class_text import TEXT
-from class_bulk import MASK_BULK, TEMPORALimg_BULK, STATICimg_BULK
+from class_bulk import MASK_BULK, TEMPORALimg_BULK, STATICimg_BULK, TEMPORALimg_BULK_Omega
 from class_image import IMAGE
 import cv2
 import numpy as np
@@ -15,6 +15,7 @@ class RUN():
         vc.set(cv2.CAP_PROP_FRAME_WIDTH, 128)
         vc.set(cv2.CAP_PROP_FRAME_HEIGHT, 128)
         vc.set(cv2.CAP_PROP_FPS, 30)
+        vc.set(cv2.CAP_PROP_BUFFERSIZE, 100)
 
         if vc.isOpened(): # try to get the first frame
             rval, frame = vc.read()
@@ -24,7 +25,7 @@ class RUN():
         mask_bulk, temporalIMG_bulk = self.setup(frame)
 
         while rval:
-            cv2.imshow("preview", frame)
+            cv2.imshow("EotMoS", frame)
             rval, frame = vc.read()
 
             frame = self.constructFrame(frame, mask_bulk, temporalIMG_bulk)
@@ -46,3 +47,10 @@ class RUN():
         _frame = np.einsum('ijkl , ijkl -> ijkl', mask_bulk.BULK_, temporalIMG_bulk.BULK_)
         frame = np.einsum('ijkl -> ijk', _frame)
         return frame
+
+    def constructFrame2(self, frame, mask_bulk, temporalIMG_bulk, counter):
+        temporalIMG_bulk.updateBULK_2(frame, counter)
+        _frame = np.einsum('ijkl , ijkl -> ijkl', mask_bulk.BULK_, temporalIMG_bulk.BULK_)
+        frame = np.einsum('ijkl -> ijk', _frame)
+        return frame
+
