@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+IMAGE	class_image.py	/^class IMAGE():$/;"	c
+MASK_BULK	class_bulk.py	/^class MASK_BULK():$/;"	c
+RUN	class_run.py	/^class RUN():$/;"	c
+TEMPORALimg_BULK_Omega	class_bulk.py	/^class TEMPORALimg_BULK_Omega():$/;"	c
+TEXT	class_text.py	/^class TEXT():$/;"	c
+__init__	class_bulk.py	/^    def __init__(self, imageInstance):$/;"	m	class:TEMPORALimg_BULK_Omega
+__init__	class_bulk.py	/^    def __init__(self, textInstance, imageInstance):$/;"	m	class:MASK_BULK
+__init__	class_image.py	/^    def __init__(self, image):$/;"	m	class:IMAGE
+__init__	class_run.py	/^    def __init__(self, pdfPATH, file_name = 'output', vidPATH = 0):$/;"	m	class:RUN
+__init__	class_text.py	/^    def __init__(self, pdfPATH):$/;"	m	class:TEXT
+args	run.py	/^args = parser.parse_args()$/;"	v
+constructBULK	class_bulk.py	/^    def constructBULK(self):$/;"	m	class:MASK_BULK
+constructBULK_	class_bulk.py	/^    def constructBULK_(self, window_size):$/;"	m	class:MASK_BULK
+constructFramev2	class_run.py	/^    def constructFramev2(self, frame0, frame1, frame2, mask_bulk, temporalIMG_bulk):$/;"	m	class:RUN
+extractText	class_text.py	/^    def extractText(self):$/;"	m	class:TEXT
+parser	run.py	/^parser = argparse.ArgumentParser()$/;"	v
+runv2	class_run.py	/^    def runv2(self):$/;"	m	class:RUN
+setupv2	class_run.py	/^    def setupv2(self, frame):$/;"	m	class:RUN
+updateBULK_	class_bulk.py	/^    def updateBULK_(self, frameR, frameB, frameG):$/;"	m	class:TEMPORALimg_BULK_Omega
+video_list	run.py	/^video_list = [args.VideoPATH + '\/' + file_ for file_ in os.listdir(args.VideoPATH)]$/;"	v

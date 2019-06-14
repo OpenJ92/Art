@@ -6,35 +6,20 @@ import skvideo.io
 import numpy as np
 
 class RUN():
-    def __init__(self, pdfPATH, vidPATH = 0):
+    def __init__(self, pdfPATH, file_name = 'output', vidPATH = 0):
         self.vidPATH = vidPATH
         self.pdfPATH = pdfPATH
+        self.file_name = file_name
 
     def runv2(self):
         cv2.namedWindow("preview")
-
+        print(self.vidPATH)
         red, blue, green = self.vidPATH
 
         vc0 = cv2.VideoCapture(red)
         vc1 = cv2.VideoCapture(blue)
         vc2 = cv2.VideoCapture(green)
-        
-        vc0.set(cv2.CAP_PROP_FRAME_WIDTH, 128)
-        vc0.set(cv2.CAP_PROP_FRAME_HEIGHT, 128)
-        vc0.set(cv2.CAP_PROP_FPS, 30)
-        vc0.set(cv2.CAP_PROP_BUFFERSIZE, 100)
-
-        vc1.set(cv2.CAP_PROP_FRAME_WIDTH, 128)
-        vc1.set(cv2.CAP_PROP_FRAME_HEIGHT, 128)
-        vc1.set(cv2.CAP_PROP_FPS, 30)
-        vc1.set(cv2.CAP_PROP_BUFFERSIZE, 100)
-
-        vc2.set(cv2.CAP_PROP_FRAME_WIDTH, 128)
-        vc2.set(cv2.CAP_PROP_FRAME_HEIGHT, 128)
-        vc2.set(cv2.CAP_PROP_FPS, 30)
-        vc2.set(cv2.CAP_PROP_BUFFERSIZE, 100)
-
-
+       
         if vc0.isOpened(): # try to get the first frame
             rval, frame = vc0.read()
         else:
@@ -53,18 +38,16 @@ class RUN():
 
                 frame = self.constructFramev2(frame0, frame1, frame2, mask_bulk, temporalIMG_bulk)
                 frames.append(frame)
-                print("frame: " + str(count))
                 count += 1
 
                 key = cv2.waitKey(20)
                 if key == 27 or not rval0 or not rval1 or not rval2:
                     break
             except Exception as e:
-                print(e)
                 break
 
         frames = np.stack(frames, axis = 0)
-        skvideo.io.vwrite("outputvideo.mp4", frames)
+        skvideo.io.vwrite(self.file_name + ".mp4", frames)
 
         vc0.release()
         vc1.release()

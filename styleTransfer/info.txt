@@ -1,2 +1,0 @@
-https://pytorch.org/tutorials/advanced/neural_style_tutorial.html
-https://towardsdatascience.com/real-time-video-neural-style-transfer-9f6f84590832

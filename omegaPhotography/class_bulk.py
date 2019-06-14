@@ -7,7 +7,7 @@ class MASK_BULK():
         self.imageInstance = imageInstance
         self.printable = string.printable
         self.translateBULKLOC_ = {self.printable[i] : i for i in range(len(self.printable))}
-        self.BULK_ = self.constructBULK_([4,16])
+        self.BULK_ = self.constructBULK_([16,16])
 
     def constructBULK(self):
         BULK_ = np.zeros(shape = (self.imageInstance.image.shape[0], self.imageInstance.image.shape[1], 3, len(self.printable))).astype('uint8')
@@ -41,7 +41,6 @@ class TEMPORALimg_BULK_Omega():
 
     def updateBULK_(self, frameR, frameB, frameG):
         frame = np.stack([frameR[:,:,0], frameB[:,:,1], frameG[:,:,2]], axis = 2)
-        #import pdb; pdb.set_trace()
         self.BULK_ = np.roll(self.BULK_, 1, axis = 3)
         self.BULK_[:, :, :, 0] = frame
 

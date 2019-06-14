@@ -2,3 +2,7 @@
 (NYU course) http://ml4a.github.io/classes/itp-F18/
 (gene-kogan) https://tisch.nyu.edu/itp/itp-people/faculty/somethings-in-residence-sirs/gene-kogan
 (gene-kogan) http://genekogan.com/cv/
+
+
+Lets start thinking about what we'll be doing for our next CS/Art project. I think an object recognition project over opencv will be most interesting. That is, we seek to construct an eye on the observer and thier actions will dictate the form of the immage. Perhaps a construction which ties together the content that I've made thus far with this new idea will save me some time.
+
