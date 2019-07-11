@@ -5,7 +5,7 @@ from itertools import cycle
 class TEXT():
     def __init__(self, pdfPATH):
         self.pdfPATH = pdfPATH
-        self.text = self.extractText()
+        self.text = self.extractText().lower()
         self.cycletext = cycle(self.text)
 
     def extractText(self):

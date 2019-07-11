@@ -5,9 +5,9 @@ class MASK_BULK():
     def __init__(self, textInstance, imageInstance):
         self.textInstance = textInstance
         self.imageInstance = imageInstance
-        self.printable = string.printable
+        self.printable = string.ascii_letters
         self.translateBULKLOC_ = {self.printable[i] : i for i in range(len(self.printable))}
-        self.BULK_ = self.constructBULK_([4,16])
+        self.BULK_ = self.constructBULK_([16,16])
 
     def constructBULK(self):
         BULK_ = np.zeros(shape = (self.imageInstance.image.shape[0], self.imageInstance.image.shape[1], 3, len(self.printable))).astype('uint8')
@@ -31,12 +31,29 @@ class MASK_BULK():
                 try:
                     BULK_[i:i + window_size[0], j:j + window_size[1], :, self.translateBULKLOC_[letter]] = window_bulk
                 except Exception as e:
-                    print(e) 
+                    BULK_[i:i + window_size[0], j:j + window_size[1], :, np.random.randint(len(self.printable))] = window_bulk
         return BULK_
+
+    def plot_MASK_BULK(self):
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.mplot3d import Axes3D
+
+        bulk = self.BULK_
+        voxels = np.stack([bulk[:,:,0,element] for element in range(bulk.shape[3])])
+        
+        fig = plt.figure(figsize = (18, 12))
+        ax = fig.gca(projection='3d')
+        ax.set_axis_off()
+        print("Before Voxel Plot")
+        ax.voxels(voxels, facecolors='red', edgecolor = 'k')
+        plt.show()
+        print("After Voxel Plot")
+
+        import pdb;pdb.set_trace();
 
 class TEMPORALimg_BULK():
     def __init__(self, imageInstance):
-        self.printable = string.printable
+        self.printable = string.ascii_letters
         self.BULK_ = np.zeros(shape=(imageInstance.image.shape[0], imageInstance.image.shape[1], 3,len(self.printable))).astype('uint8')
 
     def updateBULK_(self, frame):
@@ -49,7 +66,7 @@ class TEMPORALimg_BULK():
 
 class TEMPORALimg_BULK_Omega():
     def __init__(self, imageInstance):
-        self.printable = string.printable
+        self.printable = string.ascii_letters
         self.BULK_ = np.zeros(shape=(imageInstance.image.shape[0], imageInstance.image.shape[1], 3,len(self.printable))).astype('uint8')
 
     def updateBULK_(self, frameR, frameB, frameG):
@@ -66,3 +83,7 @@ class TEMPORALimg_BULK_Omega():
 class STATICimg_BULK():
     def __init__(self, imageInstance):
         pass
+
+if __name__ == "__main__":
+    image = IMAGE(frame)
+    pass
