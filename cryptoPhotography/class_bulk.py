@@ -71,7 +71,6 @@ class TEMPORALimg_BULK_Omega():
 
     def updateBULK_(self, frameR, frameB, frameG):
         frame = np.stack([frameR[:,:,0], frameB[:,:,1], frameG[:,:,2]], axis = 2)
-        #import pdb; pdb.set_trace()
         self.BULK_ = np.roll(self.BULK_, 1, axis = 3)
         self.BULK_[:, :, :, 0] = frame
 
